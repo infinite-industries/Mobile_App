@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'package:infinite_mobile_app/components/top_app_bar.dart';
 import 'package:infinite_mobile_app/components/nav.dart';
 
-class Loading extends StatelessWidget {
+class Loading extends StatefulWidget {
+  @override
+  _LoadingState createState() => _LoadingState();
+}
+
+class _LoadingState extends State<Loading> {
+  getAllEventsFromInfinite() {
+    print("test API call");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAllEventsFromInfinite();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Infinite Industries")),
-        body: Center(child: Text('LOADING GRAPHIC HERE')),
-        endDrawer: NavDrawer(context));
+        backgroundColor: Colors.black,
+        appBar: InfiniteAppBar(context),
+        endDrawer: NavDrawer(context),
+        body: Center(
+            child: SpinKitRing(
+          color: Colors.white,
+          size: 100.0,
+        )));
   }
 }
