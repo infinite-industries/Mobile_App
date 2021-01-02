@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'package:infinite_mobile_app/services/infinite_events.dart';
+
 import 'package:infinite_mobile_app/components/top_app_bar.dart';
 import 'package:infinite_mobile_app/components/nav.dart';
 
@@ -10,8 +12,12 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  getAllEventsFromInfinite() {
+  void getAllEventsFromInfinite() async {
     print("test API call");
+    InfiniteAPI infinite_api = InfiniteAPI();
+    // TODO: Need better naming conventions here!
+    await infinite_api.getEvents();
+    print(infinite_api.events);
   }
 
   @override
