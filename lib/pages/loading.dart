@@ -17,7 +17,13 @@ class _LoadingState extends State<Loading> {
     InfiniteAPI infinite_api = InfiniteAPI();
     // TODO: Need better naming conventions here!
     await infinite_api.getEvents();
-    print(infinite_api.events);
+    //print(infinite_api.events);
+    if (infinite_api.success) {
+      Navigator.pushReplacementNamed(context, '/home',
+          arguments: infinite_api.events);
+    } else {
+      Navigator.pushReplacementNamed(context, '/error_page');
+    }
   }
 
   @override

@@ -7,7 +7,7 @@ Widget NavDrawer(BuildContext context) {
       ListTile(
         title: Text('Home'),
         onTap: () {
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, '/loading');
         },
       ),
       ListTile(

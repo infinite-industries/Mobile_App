@@ -6,6 +6,7 @@ import 'package:infinite_mobile_app/pages/contact.dart';
 import 'package:infinite_mobile_app/pages/donate.dart';
 import 'package:infinite_mobile_app/pages/legal.dart';
 import 'package:infinite_mobile_app/pages/mission.dart';
+import 'package:infinite_mobile_app/pages/error_page.dart';
 
 void main() => runApp(MaterialApp(initialRoute: '/loading', routes: {
       '/loading': (context) => Loading(),
@@ -14,4 +15,5 @@ void main() => runApp(MaterialApp(initialRoute: '/loading', routes: {
       '/donate': (context) => Donate(),
       '/legal': (context) => Legal(),
       '/mission': (context) => Mission(),
+      '/error': (context) => ErrorPage(),
     }));
