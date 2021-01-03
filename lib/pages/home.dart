@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
         appBar: InfiniteAppBar(context),
         body: ListView(
           children: deserialized_events
-              .map((event) => InfiniteCardTemplate(event))
+              .map((event) => InfiniteCardTemplate(context, event))
               .toList(),
         ),
         endDrawer: NavDrawer(context));
