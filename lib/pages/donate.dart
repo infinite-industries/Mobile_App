@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:infinite_mobile_app/components/top_app_bar.dart';
 import 'package:infinite_mobile_app/components/nav.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 class Donate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -38,9 +40,27 @@ class Donate extends StatelessWidget {
                           style: TextStyle(fontStyle: FontStyle.normal),
                         )
                       ]),
+                )),
+            Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: RaisedButton(
+                    onPressed: _launchURL,
+                    child: Text('Please Donate via PayPal'),
+                  ),
                 ))
           ]),
         ),
         endDrawer: NavDrawer(context));
+  }
+}
+
+_launchURL() async {
+  const url = 'https://www.paypal.com/biz/fund?id=GCF56FD8ARSD6';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
