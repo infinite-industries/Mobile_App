@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     print("testing Home");
+    deserialized_events = [];
     events = ModalRoute.of(context).settings.arguments;
     // In the future, implement pagination here or pass paginated data to home??
 
