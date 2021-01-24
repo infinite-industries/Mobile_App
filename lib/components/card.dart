@@ -7,6 +7,8 @@ Widget InfiniteCardTemplate(context, data) {
           child: Column(
             children: [
               Text(data.title),
+              Text(data.briefDescription),
+              Image.network(data.image),
               TextButton(
                 child: Text('More Info'),
                 style: TextButton.styleFrom(
