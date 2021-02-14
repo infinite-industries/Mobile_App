@@ -28,6 +28,7 @@ class _HomeState extends State<Home> {
     }
 
     return Scaffold(
+        backgroundColor: Colors.black,
         appBar: InfiniteAppBar(context),
         body: ListView(
           children: deserialized_events
