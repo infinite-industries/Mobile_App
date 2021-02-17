@@ -10,9 +10,11 @@ class EventPage extends StatefulWidget {
 class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
+    Event data = ModalRoute.of(context).settings.arguments;
+    print(data.title);
     return Scaffold(
         body: ListView(children: [
-      Text('Event Page Proto Test'),
+      Text("testing"),
       TextButton(
         child: Text('Back'),
         onPressed: () => Navigator.pop(context),

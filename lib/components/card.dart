@@ -40,7 +40,7 @@ Widget InfiniteCardTemplate(context, data) {
               Image.network(data.image,
                   width: screen_data.size.width, height: 200),
               Container(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                  padding: EdgeInsets.fromLTRB(10, 20, 10, 17),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(data.title,
@@ -50,9 +50,22 @@ Widget InfiniteCardTemplate(context, data) {
                           fontWeight: FontWeight.bold,
                         )),
                   )),
-              // ? need to think this one through -- Text(data.venue),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on_sharp,
+                    color: Colors.black,
+                    size: 25.0,
+                  ),
+                  Text(data.venue != null ? data.venue.name : "",
+                      style: TextStyle(
+                        fontFamily: 'Open Sans',
+                        fontSize: 18.0,
+                      )),
+                ],
+              ),
               Container(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  padding: EdgeInsets.fromLTRB(10, 17, 10, 0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(event_date_and_day,
@@ -93,7 +106,8 @@ Widget InfiniteCardTemplate(context, data) {
                     ),
                     onPressed: () {
                       print('Pressed');
-                      Navigator.pushNamed(context, '/event_page');
+                      Navigator.pushNamed(context, '/event_page',
+                          arguments: data);
                     },
                   ))
             ],
