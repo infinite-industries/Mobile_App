@@ -67,3 +67,12 @@ class EventTime {
     return EventTime(startTime: data['start_time'], endTime: data['end_time']);
   }
 }
+
+class EventWithFormattedDate {
+  Event incoming_event;
+  String event_date_and_day;
+  String event_times;
+
+  EventWithFormattedDate(
+      this.incoming_event, this.event_date_and_day, this.event_times);
+}

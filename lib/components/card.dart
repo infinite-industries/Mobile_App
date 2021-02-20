@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:infinite_mobile_app/models/event.dart';
+
 Widget InfiniteCardTemplate(context, data) {
   String event_date_and_day;
   String event_times;
@@ -18,9 +20,9 @@ Widget InfiniteCardTemplate(context, data) {
           " - " +
           DateFormat('h:mm a').format(endEvent);
 
-      print(DateFormat('EEEE, MMMM d h:mm a').format(startEvent) +
-          " - " +
-          DateFormat('h:mm a').format(endEvent));
+      // print(DateFormat('EEEE, MMMM d h:mm a').format(startEvent) +
+      //     " - " +
+      //     DateFormat('h:mm a').format(endEvent));
     } else {
       event_date_and_day = "invalid date";
       event_times = "invalid times";
@@ -29,6 +31,7 @@ Widget InfiniteCardTemplate(context, data) {
     event_date_and_day = "Online Resource";
     event_times = "";
   }
+
   return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -107,7 +110,8 @@ Widget InfiniteCardTemplate(context, data) {
                     onPressed: () {
                       print('Pressed');
                       Navigator.pushNamed(context, '/event_page',
-                          arguments: data);
+                          arguments: EventWithFormattedDate(
+                              data, event_date_and_day, event_times));
                     },
                   ))
             ],
