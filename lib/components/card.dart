@@ -43,7 +43,7 @@ Widget InfiniteCardTemplate(context, data) {
               Image.network(data.image,
                   width: screen_data.size.width, height: 200),
               Container(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 17),
+                  padding: EdgeInsets.fromLTRB(15, 20, 15, 17),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(data.title,
@@ -53,22 +53,24 @@ Widget InfiniteCardTemplate(context, data) {
                           fontWeight: FontWeight.bold,
                         )),
                   )),
-              Row(
-                children: [
-                  Icon(
-                    Icons.location_on_sharp,
-                    color: Colors.black,
-                    size: 25.0,
-                  ),
-                  Text(data.venue != null ? data.venue.name : "",
-                      style: TextStyle(
-                        fontFamily: 'Open Sans',
-                        fontSize: 18.0,
-                      )),
-                ],
-              ),
               Container(
-                  padding: EdgeInsets.fromLTRB(10, 17, 10, 0),
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_sharp,
+                        color: Colors.black,
+                        size: 25.0,
+                      ),
+                      Text(data.venue != null ? data.venue.name : "",
+                          style: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 18.0,
+                          )),
+                    ],
+                  )),
+              Container(
+                  padding: EdgeInsets.fromLTRB(15, 17, 15, 0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(event_date_and_day,
@@ -78,7 +80,7 @@ Widget InfiniteCardTemplate(context, data) {
                         )),
                   )),
               Container(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(event_times,
@@ -88,7 +90,7 @@ Widget InfiniteCardTemplate(context, data) {
                         )),
                   )),
               Container(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(data.briefDescription,
