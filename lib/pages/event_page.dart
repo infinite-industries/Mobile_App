@@ -4,6 +4,7 @@ import 'package:flutter_html/style.dart';
 
 import 'package:infinite_mobile_app/models/event.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class EventPage extends StatefulWidget {
   @override
@@ -13,12 +14,40 @@ class EventPage extends StatefulWidget {
 class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
-    EventWithFormattedDate args = ModalRoute.of(context).settings.arguments;
-    // print(args.incoming_event.description);
-    //print(args.incoming_event.websiteLink);
+    Event args = ModalRoute.of(context).settings.arguments;
+    print(args.title);
+    //print(args.event_times);
 
     // MediaQueryData screen_data;
     // screen_data = MediaQuery.of(context);
+
+    List<_DateAndTime> DatesAndTimes;
+
+    if (args.dateTimes.length > 0) {
+      for (var i = 0; i < args.dateTimes.length; i++) {
+        DateTime startEvent = DateTime.tryParse(args.dateTimes[0].startTime);
+        DateTime endEvent = DateTime.tryParse(args.dateTimes[0].endTime);
+
+        if ((startEvent != null) && (endEvent != null)) {
+          DatesAndTimes[i].event_date_and_day =
+              DateFormat('EEEE, MMMM d').format(startEvent);
+          DatesAndTimes[i].event_times =
+              DateFormat('h:mm a').format(startEvent) +
+                  " - " +
+                  DateFormat('h:mm a').format(endEvent);
+
+          // print(DateFormat('EEEE, MMMM d h:mm a').format(startEvent) +
+          //     " - " +
+          //     DateFormat('h:mm a').format(endEvent));
+        } else {
+          DatesAndTimes[i].event_date_and_day = "invalid date";
+          DatesAndTimes[i].event_times = "invalid times";
+        }
+      }
+    } else {
+      DatesAndTimes[0].event_date_and_day = "Online Resource";
+      DatesAndTimes[0].event_times = "";
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -28,7 +57,7 @@ class _EventPageState extends State<EventPage> {
           Container(
               color: Colors.grey[900],
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Image.network(args.incoming_event.image)),
+              child: Image.network(args.image)),
           Container(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 17),
               color: Colors.grey[900],
@@ -36,29 +65,50 @@ class _EventPageState extends State<EventPage> {
               child: RichText(
                   text: TextSpan(children: [
                 TextSpan(
-                    text: args.incoming_event.title + "\n",
+                    text: args.title + "\n",
                     style: TextStyle(
                         fontFamily: 'Open Sans',
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
                 TextSpan(
-                    text: args.incoming_event.venue.name != null
-                        ? args.incoming_event.venue.name
-                        : "",
+                    text: args.venue.name != null ? args.venue.name : "",
                     style: TextStyle(
                         fontFamily: 'Open Sans',
                         fontSize: 18.0,
                         color: Colors.white,
                         height: 1.8)),
               ]))),
+          // Container(
+          //     padding: EdgeInsets.fromLTRB(15, 17, 15, 0),
+          //     child: Align(
+          //       alignment: Alignment.centerLeft,
+          //       child: Text(DatesAndTimes[0].event_date_and_day,
+          //           style: TextStyle(
+          //             fontFamily: 'Open Sans',
+          //             fontSize: 16.0,
+          //           )),
+          //     )),
+          // Container(
+          //     padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
+          //     child: Align(
+          //       alignment: Alignment.centerLeft,
+          //       child: Text(DatesAndTimes[0].event_times,
+          //           style: TextStyle(
+          //             fontFamily: 'Open Sans',
+          //             fontSize: 16.0,
+          //           )),
+          //     )),
+          if (args.admissionFee != "none")
+            Container(
+                padding: EdgeInsets.fromLTRB(25, 20, 25, 17),
+                child: Text("Admission Fee: ${args.admissionFee}",
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic, fontSize: 19.0))),
           Container(
               child: Html(
-                  data: args.incoming_event.description != null
-                      ? args.incoming_event.description
-                          .split('<p><br></p>')
-                          .toSet()
-                          .join(' ')
+                  data: args.description != null
+                      ? args.description.split('<p><br></p>').toSet().join(' ')
                       : "",
                   style: {
                     "p": Style(
@@ -72,45 +122,45 @@ class _EventPageState extends State<EventPage> {
                     //  print("Opening $url...");
                     _launchURL(url);
                   })),
-          if (args.incoming_event.websiteLink != "none")
+          if (args.websiteLink != "none")
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: GestureDetector(
                   onTap: () {
-                    _launchURL(args.incoming_event.websiteLink);
+                    _launchURL(args.websiteLink);
                   },
                   child: Text("Event Website",
                       style:
                           TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
                 )),
-          if (args.incoming_event.ticketLink != "none")
+          if (args.ticketLink != "none")
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: GestureDetector(
                   onTap: () {
-                    _launchURL(args.incoming_event.ticketLink);
+                    _launchURL(args.ticketLink);
                   },
                   child: Text("Event Ticket Link",
                       style:
                           TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
                 )),
-          if (args.incoming_event.fbEventLink != "none")
+          if (args.fbEventLink != "none")
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: GestureDetector(
                   onTap: () {
-                    _launchURL(args.incoming_event.fbEventLink);
+                    _launchURL(args.fbEventLink);
                   },
                   child: Text("Facebook Event Link",
                       style:
                           TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
                 )),
-          if (args.incoming_event.eventbriteLink != "none")
+          if (args.eventbriteLink != "none")
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: GestureDetector(
                   onTap: () {
-                    _launchURL(args.incoming_event.eventbriteLink);
+                    _launchURL(args.eventbriteLink);
                   },
                   child: Text("Eventbrite Link",
                       style:
@@ -122,6 +172,11 @@ class _EventPageState extends State<EventPage> {
           )
         ]));
   }
+}
+
+class _DateAndTime {
+  String event_date_and_day;
+  String event_times;
 }
 
 _launchURL(url) async {

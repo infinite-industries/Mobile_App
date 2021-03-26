@@ -112,8 +112,7 @@ Widget InfiniteCardTemplate(context, data) {
                     onPressed: () {
                       print('Pressed');
                       Navigator.pushNamed(context, '/event_page',
-                          arguments: EventWithFormattedDate(
-                              data, event_date_and_day, event_times));
+                          arguments: data);
                     },
                   ))
             ],

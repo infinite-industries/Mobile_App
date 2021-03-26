@@ -17,5 +17,5 @@ void main() => runApp(MaterialApp(initialRoute: '/loading', routes: {
       '/legal': (context) => Legal(),
       '/mission': (context) => Mission(),
       '/event_page': (context) => EventPage(),
-      '/error': (context) => ErrorPage(),
+      '/error_page': (context) => ErrorPage(),
     }));
