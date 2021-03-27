@@ -8,8 +8,7 @@ class InfiniteAPI {
   InfiniteAPI();
   Future<void> getEvents() async {
     try {
-      Response response =
-          await get('https://staging-api.infinite.industries/events');
+      Response response = await get('https://api.infinite.industries/events');
       Map data = jsonDecode(response.body);
 
       print(data['status']);

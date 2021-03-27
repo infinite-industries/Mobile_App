@@ -16,38 +16,10 @@ class _EventPageState extends State<EventPage> {
   Widget build(BuildContext context) {
     Event args = ModalRoute.of(context).settings.arguments;
     print(args.title);
-    //print(args.event_times);
+    // print(args.dateTimes[0].startTime);
 
     // MediaQueryData screen_data;
     // screen_data = MediaQuery.of(context);
-
-    List<_DateAndTime> DatesAndTimes;
-
-    if (args.dateTimes.length > 0) {
-      for (var i = 0; i < args.dateTimes.length; i++) {
-        DateTime startEvent = DateTime.tryParse(args.dateTimes[0].startTime);
-        DateTime endEvent = DateTime.tryParse(args.dateTimes[0].endTime);
-
-        if ((startEvent != null) && (endEvent != null)) {
-          DatesAndTimes[i].event_date_and_day =
-              DateFormat('EEEE, MMMM d').format(startEvent);
-          DatesAndTimes[i].event_times =
-              DateFormat('h:mm a').format(startEvent) +
-                  " - " +
-                  DateFormat('h:mm a').format(endEvent);
-
-          // print(DateFormat('EEEE, MMMM d h:mm a').format(startEvent) +
-          //     " - " +
-          //     DateFormat('h:mm a').format(endEvent));
-        } else {
-          DatesAndTimes[i].event_date_and_day = "invalid date";
-          DatesAndTimes[i].event_times = "invalid times";
-        }
-      }
-    } else {
-      DatesAndTimes[0].event_date_and_day = "Online Resource";
-      DatesAndTimes[0].event_times = "";
-    }
 
     return Scaffold(
         appBar: AppBar(
@@ -79,26 +51,43 @@ class _EventPageState extends State<EventPage> {
                         color: Colors.white,
                         height: 1.8)),
               ]))),
-          // Container(
-          //     padding: EdgeInsets.fromLTRB(15, 17, 15, 0),
-          //     child: Align(
-          //       alignment: Alignment.centerLeft,
-          //       child: Text(DatesAndTimes[0].event_date_and_day,
-          //           style: TextStyle(
-          //             fontFamily: 'Open Sans',
-          //             fontSize: 16.0,
-          //           )),
-          //     )),
-          // Container(
-          //     padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
-          //     child: Align(
-          //       alignment: Alignment.centerLeft,
-          //       child: Text(DatesAndTimes[0].event_times,
-          //           style: TextStyle(
-          //             fontFamily: 'Open Sans',
-          //             fontSize: 16.0,
-          //           )),
-          //     )),
+          (args.dateTimes.length > 0)
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: args.dateTimes.map((element) {
+                    DateTime startEvent = DateTime.tryParse(element.startTime);
+                    DateTime endEvent = DateTime.tryParse(element.endTime);
+
+                    String event_date_and_day = "Invalid Date";
+                    String event_times = "Invalid Times";
+                    if ((startEvent != null) && (endEvent != null)) {
+                      event_date_and_day =
+                          DateFormat('EEEE, MMMM d').format(startEvent);
+                      event_times = DateFormat('h:mm a').format(startEvent) +
+                          " - " +
+                          DateFormat('h:mm a').format(endEvent);
+                    }
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(25, 17, 20, 0),
+                              child: Text(event_date_and_day,
+                                  style: TextStyle(
+                                    fontFamily: 'Open Sans',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0,
+                                  ))),
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(25, 5, 20, 10),
+                              child: Text(event_times,
+                                  style: TextStyle(
+                                    fontFamily: 'Open Sans',
+                                    fontSize: 16.0,
+                                  ))),
+                        ]);
+                  }).toList())
+              : Column(children: [Text("Online Event")]),
           if (args.admissionFee != "none")
             Container(
                 padding: EdgeInsets.fromLTRB(25, 20, 25, 17),
@@ -122,7 +111,7 @@ class _EventPageState extends State<EventPage> {
                     //  print("Opening $url...");
                     _launchURL(url);
                   })),
-          if (args.websiteLink != "none")
+          if ((args.websiteLink != "none") && (args.websiteLink != ""))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: GestureDetector(
@@ -133,7 +122,7 @@ class _EventPageState extends State<EventPage> {
                       style:
                           TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
                 )),
-          if (args.ticketLink != "none")
+          if ((args.ticketLink != "none") && (args.ticketLink != ""))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: GestureDetector(
@@ -144,7 +133,7 @@ class _EventPageState extends State<EventPage> {
                       style:
                           TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
                 )),
-          if (args.fbEventLink != "none")
+          if ((args.fbEventLink != "none") && (args.fbEventLink != ""))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: GestureDetector(
@@ -155,7 +144,7 @@ class _EventPageState extends State<EventPage> {
                       style:
                           TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
                 )),
-          if (args.eventbriteLink != "none")
+          if ((args.eventbriteLink != "none") && (args.eventbriteLink != ""))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: GestureDetector(
@@ -180,6 +169,7 @@ class _DateAndTime {
 }
 
 _launchURL(url) async {
+  print("try opening" + url);
   if (await canLaunch(url)) {
     await launch(url);
   } else {
