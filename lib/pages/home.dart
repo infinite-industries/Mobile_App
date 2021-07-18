@@ -12,24 +12,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List events = [];
+  List? events = [];
   List<Event> deserialized_events = [];
 
   @override
   Widget build(BuildContext context) {
     print("testing Home");
     deserialized_events = [];
-    events = ModalRoute.of(context).settings.arguments;
+    events = ModalRoute.of(context)!.settings.arguments as List<dynamic>?;
     // In the future, implement pagination here or pass paginated data to home??
 
-    for (var event_map in events) {
+    for (var event_map in events!) {
       final eventObject = Event.fromMap(event_map);
       deserialized_events.add(eventObject);
     }
 
     return Scaffold(
         backgroundColor: Colors.black,
-        appBar: InfiniteAppBar(context),
+        appBar: InfiniteAppBar(context) as PreferredSizeWidget?,
         body: ListView(
           children: deserialized_events
               .map((event) => InfiniteCardTemplate(context, event))

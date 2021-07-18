@@ -11,8 +11,8 @@ Widget InfiniteCardTemplate(context, data) {
   screen_data = MediaQuery.of(context);
 
   if (data.dateTimes.length > 0) {
-    DateTime startEvent = DateTime.tryParse(data.dateTimes[0].startTime);
-    DateTime endEvent = DateTime.tryParse(data.dateTimes[0].endTime);
+    DateTime? startEvent = DateTime.tryParse(data.dateTimes[0].startTime);
+    DateTime? endEvent = DateTime.tryParse(data.dateTimes[0].endTime);
 
     if ((startEvent != null) && (endEvent != null)) {
       event_date_and_day = DateFormat('EEEE, MMMM d').format(startEvent);

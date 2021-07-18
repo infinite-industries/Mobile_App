@@ -15,12 +15,12 @@ class Mission extends StatefulWidget {
 }
 
 class MissionState extends State<Mission> {
-  WebViewController _controller;
+  late WebViewController _controller;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: InfiniteAppBar(context),
+        appBar: InfiniteAppBar(context) as PreferredSizeWidget?,
         body: WebView(
           initialUrl: 'about:blank',
           onWebViewCreated: (WebViewController webViewController) {

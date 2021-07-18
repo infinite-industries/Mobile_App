@@ -8,7 +8,7 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print("landed on error page");
     return Scaffold(
-        appBar: InfiniteAppBar(context),
+        appBar: InfiniteAppBar(context) as PreferredSizeWidget?,
         body: Center(child: Text('Cute Error Message')),
         endDrawer: NavDrawer(context));
   }

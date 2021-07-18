@@ -1,8 +1,8 @@
 class Venue {
-  String id;
-  String name;
-  String address;
-  String gMapLink;
+  String? id;
+  String? name;
+  String? address;
+  String? gMapLink;
 
   Venue({
     this.id,

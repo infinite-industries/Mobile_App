@@ -36,7 +36,7 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
-        appBar: InfiniteAppBar(context),
+        appBar: InfiniteAppBar(context) as PreferredSizeWidget?,
         endDrawer: NavDrawer(context),
         body: Center(
             child: SpinKitRing(

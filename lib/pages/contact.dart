@@ -7,7 +7,7 @@ class Contact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: InfiniteAppBar(context),
+        appBar: InfiniteAppBar(context) as PreferredSizeWidget?,
         body: Center(child: Text('Contact Mockup')),
         endDrawer: NavDrawer(context));
   }

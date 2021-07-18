@@ -14,7 +14,7 @@ class EventPage extends StatefulWidget {
 class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
-    Event args = ModalRoute.of(context).settings.arguments;
+    Event args = ModalRoute.of(context)!.settings.arguments as Event;
     print(args.title);
     // print(args.dateTimes[0].startTime);
 
@@ -29,7 +29,7 @@ class _EventPageState extends State<EventPage> {
           Container(
               color: Colors.grey[900],
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Image.network(args.image)),
+              child: Image.network(args.image!)),
           Container(
               padding: EdgeInsets.fromLTRB(20, 20, 20, 17),
               color: Colors.grey[900],
@@ -37,26 +37,26 @@ class _EventPageState extends State<EventPage> {
               child: RichText(
                   text: TextSpan(children: [
                 TextSpan(
-                    text: args.title + "\n",
+                    text: args.title! + "\n",
                     style: TextStyle(
                         fontFamily: 'Open Sans',
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
                 TextSpan(
-                    text: args.venue.name != null ? args.venue.name : "",
+                    text: args.venue!.name != null ? args.venue!.name : "",
                     style: TextStyle(
                         fontFamily: 'Open Sans',
                         fontSize: 18.0,
                         color: Colors.white,
                         height: 1.8)),
               ]))),
-          (args.dateTimes.length > 0)
+          (args.dateTimes!.length > 0)
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: args.dateTimes.map((element) {
-                    DateTime startEvent = DateTime.tryParse(element.startTime);
-                    DateTime endEvent = DateTime.tryParse(element.endTime);
+                  children: args.dateTimes!.map((element) {
+                    DateTime? startEvent = DateTime.tryParse(element.startTime!);
+                    DateTime? endEvent = DateTime.tryParse(element.endTime!);
 
                     String event_date_and_day = "Invalid Date";
                     String event_times = "Invalid Times";
@@ -94,23 +94,23 @@ class _EventPageState extends State<EventPage> {
                 child: Text("Admission Fee: ${args.admissionFee}",
                     style: TextStyle(
                         fontStyle: FontStyle.italic, fontSize: 19.0))),
-          Container(
-              child: Html(
-                  data: args.description != null
-                      ? args.description.split('<p><br></p>').toSet().join(' ')
-                      : "",
-                  style: {
-                    "p": Style(
-                      fontFamily: 'serif',
-                      padding: EdgeInsets.all(0),
-                      margin: EdgeInsets.all(16.0),
-                      fontSize: FontSize(16.0),
-                    )
-                  },
-                  onLinkTap: (url) {
-                    //  print("Opening $url...");
-                    _launchURL(url);
-                  })),
+          // Container(
+          //     child: Html(
+          //         data: args.description != null
+          //             ? args.description.split('<p><br></p>').toSet().join(' ')
+          //             : "",
+          //         style: {
+          //           "p": Style(
+          //             fontFamily: 'serif',
+          //             padding: EdgeInsets.all(0),
+          //             margin: EdgeInsets.all(16.0),
+          //             fontSize: FontSize(16.0),
+          //           )
+          //         },
+          //         onLinkTap: (url) {
+          //           //  print("Opening $url...");
+          //           _launchURL(url);
+          //         })),
           if ((args.websiteLink != "none") && (args.websiteLink != ""))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
@@ -164,8 +164,8 @@ class _EventPageState extends State<EventPage> {
 }
 
 class _DateAndTime {
-  String event_date_and_day;
-  String event_times;
+  String? event_date_and_day;
+  String? event_times;
 }
 
 _launchURL(url) async {

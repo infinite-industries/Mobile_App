@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "544448814700",
+    "project_id": "infinite-notifications",
+    "storage_bucket": "infinite-notifications.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544448814700:android:dee368c9bcce863d9b8249",
+        "android_client_info": {
+          "package_name": "com.example.infinite_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544448814700-571gqgtg6gaiqdcf36vhto1tk8posoq8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.infinite_mobile_app",
+            "certificate_hash": "e8238fe263fe9adf6692cedcd62f0c85d5c30c03"
+          }
+        },
+        {
+          "client_id": "544448814700-73kn5a7be4tsu7ov8rke4c482mt6i911.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcw4n74OWml3Uk7m0G641i8Sey27QD9E0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544448814700-73kn5a7be4tsu7ov8rke4c482mt6i911.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

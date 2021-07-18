@@ -1,17 +1,21 @@
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+var url =
+    Uri.parse('https://api.infinite.industries:443/v1/current-events/verified');
+
 class InfiniteAPI {
-  bool success;
-  List<dynamic> events;
+  late bool success;
+  List<dynamic>? events;
 
   InfiniteAPI();
   Future<void> getEvents() async {
     try {
-      Response response = await get('https://api.infinite.industries/events');
+      http.Response response = await http.get(url);
+      print("trying");
       Map data = jsonDecode(response.body);
 
-      print(data['status']);
+      print("Response from server:" + data['status']);
       if (data['status'] == 'success') {
         success = true;
         print("Passing events as a map for further unpacking");

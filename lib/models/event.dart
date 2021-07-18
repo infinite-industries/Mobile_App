@@ -1,21 +1,21 @@
 import 'package:infinite_mobile_app/models/venue.dart';
 
 class Event {
-  String id;
-  String title;
-  String briefDescription;
-  String description;
-  String image;
-  String socialImage;
-  List<EventTime> dateTimes;
-  Venue venue;
-  String admissionFee;
-  String websiteLink;
-  String ticketLink;
-  String fbEventLink;
-  String eventbriteLink;
-  String bitlyLink;
-  List<String> tags;
+  String? id;
+  String? title;
+  String? briefDescription;
+  String? description;
+  String? image;
+  String? socialImage;
+  List<EventTime>? dateTimes;
+  Venue? venue;
+  String? admissionFee;
+  String? websiteLink;
+  String? ticketLink;
+  String? fbEventLink;
+  String? eventbriteLink;
+  String? bitlyLink;
+  List<String>? tags;
 
   Event(
       {this.id,
@@ -58,8 +58,8 @@ class Event {
 }
 
 class EventTime {
-  String startTime;
-  String endTime;
+  String? startTime;
+  String? endTime;
 
   EventTime({this.startTime, this.endTime});
 

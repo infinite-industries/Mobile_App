@@ -10,7 +10,7 @@ class Legal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: InfiniteAppBar(context),
+        appBar: InfiniteAppBar(context) as PreferredSizeWidget?,
         body: SingleChildScrollView(
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
