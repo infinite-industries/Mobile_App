@@ -52,65 +52,58 @@ class InitializationRoutines extends StatefulWidget {
   _InitRoutesAndNotifications createState() => _InitRoutesAndNotifications();
 }
 
-String ReturnNonNullableString(String? test_string) {
-  if (test_string == null) {
-    test_string = "";
-  }
-  return test_string;
-}
-
 class _InitRoutesAndNotifications extends State<InitializationRoutines> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //   RemoteNotification? notification = message.notification;
-  //   AndroidNotification? android = message.notification?.android;
-  //   if (notification != null && android != null) {
-  //     flutterLocalNotificationsPlugin.show(
-  //         notification.hashCode,
-  //         notification.title,
-  //         notification.body,
-  //         NotificationDetails(
-  //           android: AndroidNotificationDetails(
-  //             channel.id,
-  //             channel.name,
-  //             channel.description,
-  //             color: Colors.blue,
-  //             playSound: true,
-  //             icon: '@mipmap/ic_launcher',
-  //           ),
-  //         ));
-  //   }
-  // }
-  // );
+  @override
+  void initState() {
+    super.initState();
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+    if (notification != null && android != null) {
+      flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channel.description,
+              color: Colors.blue,
+              playSound: true,
+              icon: '@mipmap/ic_launcher',
+            ),
+          ));
+    }
+  }
+  );
 
-  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-  //   print('A new onMessageOpenedApp event was published!');
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print('A new onMessageOpenedApp event was published!');
 
-  //   RemoteNotification? notification = message.notification;
-  //   AndroidNotification? android = message.notification?.android;
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
 
-  //   String NonNullableTitle = ReturnNonNullableString(notification.title);
-  //   // Argggggg!!!! This doesn't work
+    if (notification != null && android != null) {
+      Text? title = notification.title != null ? Text(notification.title!) : null;
+      Text body = Text(notification.body != null ? notification.body! : '');
 
-  //   if (notification != null && android != null) {
-  //     showDialog(
-  //         context: context,
-  //         builder: (_) {
-  //           return AlertDialog(
-  //             title: Text(notification.title),
-  //             content: SingleChildScrollView(
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [Text(notification.body)],
-  //               ),
-  //             ),
-  //           );
-  //         });
-  //   }
-  // });
-  // }
+      showDialog(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              title: title,
+              content: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [body],
+                ),
+              ),
+            );
+          });
+    }
+  });
+  }
 
   @override
   Widget build(BuildContext context) {

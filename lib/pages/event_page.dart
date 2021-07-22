@@ -44,7 +44,7 @@ class _EventPageState extends State<EventPage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
                 TextSpan(
-                    text: args.venue!.name != null ? args.venue!.name : "",
+                    text: args.venue?.name != null ? args.venue!.name : "",
                     style: TextStyle(
                         fontFamily: 'Open Sans',
                         fontSize: 18.0,
@@ -94,23 +94,23 @@ class _EventPageState extends State<EventPage> {
                 child: Text("Admission Fee: ${args.admissionFee}",
                     style: TextStyle(
                         fontStyle: FontStyle.italic, fontSize: 19.0))),
-          // Container(
-          //     child: Html(
-          //         data: args.description != null
-          //             ? args.description.split('<p><br></p>').toSet().join(' ')
-          //             : "",
-          //         style: {
-          //           "p": Style(
-          //             fontFamily: 'serif',
-          //             padding: EdgeInsets.all(0),
-          //             margin: EdgeInsets.all(16.0),
-          //             fontSize: FontSize(16.0),
-          //           )
-          //         },
-          //         onLinkTap: (url) {
-          //           //  print("Opening $url...");
-          //           _launchURL(url);
-          //         })),
+          Container(
+              child: Html(
+                  data: args.description != null
+                      ? args.description!.split('<p><br></p>').toSet().join(' ')
+                      : "",
+                  style: {
+                    "p": Style(
+                      fontFamily: 'serif',
+                      padding: EdgeInsets.all(0),
+                      margin: EdgeInsets.all(16.0),
+                      fontSize: FontSize(16.0),
+                    )
+                  },
+                  onLinkTap: (url, renderContext, map, element) {
+                    //  print("Opening $url...");
+                    _launchURL(url);
+                  })),
           if ((args.websiteLink != "none") && (args.websiteLink != ""))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
