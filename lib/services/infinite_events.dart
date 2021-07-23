@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 var url =
-    Uri.parse('https://api.infinite.industries:443/v1/current-events/verified');
+    Uri.parse('https://api.infinite.industries:443/v1/current-events/verified?embed=Venue');
 
 class InfiniteAPI {
   late bool success;
