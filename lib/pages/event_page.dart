@@ -55,8 +55,10 @@ class _EventPageState extends State<EventPage> {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: args.dateTimes!.map((element) {
-                    DateTime? startEvent = DateTime.tryParse(element.startTime!);
-                    DateTime? endEvent = DateTime.tryParse(element.endTime!);
+                    DateTime? startEvent =
+                        DateTime.tryParse(element.startTime!)!.toLocal();
+                    DateTime? endEvent =
+                        DateTime.tryParse(element.endTime!)!.toLocal();
 
                     String event_date_and_day = "Invalid Date";
                     String event_times = "Invalid Times";

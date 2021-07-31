@@ -14,9 +14,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    'This channel is used for important notifications.', // description
+    'infinite_industries_channel', // id
+    'Infinite Industries Notifications', // title
+    'Notifying the world about our awesome event updates!', // description
     importance: Importance.high,
     playSound: true);
 
@@ -56,53 +56,53 @@ class _InitRoutesAndNotifications extends State<InitializationRoutines> {
   @override
   void initState() {
     super.initState();
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-    if (notification != null && android != null) {
-      flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              channel.description,
-              color: Colors.blue,
-              playSound: true,
-              icon: '@mipmap/ic_launcher',
-            ),
-          ));
-    }
-  }
-  );
-
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print('A new onMessageOpenedApp event was published!');
-
-    RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-
-    if (notification != null && android != null) {
-      Text? title = notification.title != null ? Text(notification.title!) : null;
-      Text body = Text(notification.body != null ? notification.body! : '');
-
-      showDialog(
-          context: context,
-          builder: (_) {
-            return AlertDialog(
-              title: title,
-              content: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [body],
-                ),
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channel.description,
+                color: Colors.blue,
+                playSound: true,
+                icon: '@mipmap/infinite_launcher',
               ),
-            );
-          });
-    }
-  });
+            ));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+
+      if (notification != null && android != null) {
+        Text? title =
+            notification.title != null ? Text(notification.title!) : null;
+        Text body = Text(notification.body != null ? notification.body! : '');
+
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: title,
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [body],
+                  ),
+                ),
+              );
+            });
+      }
+    });
   }
 
   @override

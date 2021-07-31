@@ -2,7 +2,8 @@
     package="com.example.infinite_mobile_app">
    <application
         android:label="infinite_mobile_app"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:resource="@mipmap/infinite_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
