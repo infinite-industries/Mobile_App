@@ -8,6 +8,7 @@ import 'package:infinite_mobile_app/pages/legal.dart';
 import 'package:infinite_mobile_app/pages/mission.dart';
 import 'package:infinite_mobile_app/pages/error_page.dart';
 import 'package:infinite_mobile_app/pages/event_page.dart';
+import 'package:infinite_mobile_app/theme.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -107,7 +108,7 @@ class _InitRoutesAndNotifications extends State<InitializationRoutines> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(initialRoute: '/loading', routes: {
+    return MaterialApp(initialRoute: '/loading', theme: infiniteTheme, routes: {
       '/loading': (context) => Loading(),
       '/home': (context) => Home(),
       '/contact': (context) => Contact(),

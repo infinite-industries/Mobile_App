@@ -1,43 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import 'package:infinite_mobile_app/models/event.dart';
+import 'package:infinite_mobile_app/components/event_day.dart';
+import 'package:infinite_mobile_app/components/event_time.dart';
 
 Widget InfiniteCardTemplate(context, data) {
-  String event_date_and_day;
-  String event_times;
 
   MediaQueryData screen_data;
   screen_data = MediaQuery.of(context);
 
-  if (data.dateTimes.length > 0) {
-    DateTime? startEvent =
-        DateTime.tryParse(data.dateTimes[0].startTime)?.toLocal();
-    DateTime? endEvent =
-        DateTime.tryParse(data.dateTimes[0].endTime)?.toLocal();
-
-    if ((startEvent != null) && (endEvent != null)) {
-      event_date_and_day = DateFormat('EEEE, MMMM d').format(startEvent);
-      event_times = DateFormat('h:mm a').format(startEvent) +
-          " - " +
-          DateFormat('h:mm a').format(endEvent);
-
-      // print(DateFormat('EEEE, MMMM d h:mm a').format(startEvent) +
-      //     " - " +
-      //     DateFormat('h:mm a').format(endEvent));
-    } else {
-      event_date_and_day = "invalid date";
-      event_times = "invalid times";
-    }
-  } else {
-    event_date_and_day = "Online Resource";
-    event_times = "";
-  }
+  bool isOnlineResource = data.dateTimes.length == 0;
 
   return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
       child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -49,11 +22,8 @@ Widget InfiniteCardTemplate(context, data) {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(data.title,
-                        style: TextStyle(
-                          fontFamily: 'Open Sans',
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        )),
+                        style: Theme.of(context).textTheme.headline1
+                      ),
                   )),
               Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -65,32 +35,34 @@ Widget InfiniteCardTemplate(context, data) {
                         size: 25.0,
                       ),
                       Text(data.venue != null ? data.venue.name : "",
-                          style: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontSize: 18.0,
-                          )),
+                          style: Theme.of(context).textTheme.headline2
+                      )
                     ],
                   )),
               Container(
-                  padding: EdgeInsets.fromLTRB(15, 17, 15, 0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(event_date_and_day,
-                        style: TextStyle(
-                          fontFamily: 'Open Sans',
-                          fontSize: 16.0,
-                        )),
-                  )),
+                padding: EdgeInsets.fromLTRB(15, 17, 15, 0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: isOnlineResource ?
+                    Text('Online Resource', style: Theme.of(context).textTheme.headline3) :
+                    EventDayDisplay(
+                      eventTime: data.dateTimes[0],
+                      style: Theme.of(context).textTheme.headline3
+                    )
+                )
+              ),
               Container(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(event_times,
-                        style: TextStyle(
-                          fontFamily: 'Open Sans',
-                          fontSize: 16.0,
-                        )),
-                  )),
+                padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: isOnlineResource ?
+                    Text('', style: Theme.of(context).textTheme.headline3) :
+                    EventTimeDisplay(
+                      eventTime: data.dateTimes[0],
+                      style: Theme.of(context).textTheme.headline3
+                    )
+                )
+              ),
               Container(
                   padding: EdgeInsets.fromLTRB(15, 0, 15, 20),
                   child: Align(

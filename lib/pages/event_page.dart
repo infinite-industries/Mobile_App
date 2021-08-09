@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
+import 'package:infinite_mobile_app/components/event_day.dart';
+import 'package:infinite_mobile_app/components/event_time.dart';
 
 import 'package:infinite_mobile_app/models/event.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:intl/intl.dart';
+import 'package:infinite_mobile_app/components/markup.dart';
+import 'package:infinite_mobile_app/components/textlink.dart';
 
 class EventPage extends StatefulWidget {
   @override
@@ -55,38 +55,23 @@ class _EventPageState extends State<EventPage> {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: args.dateTimes!.map((element) {
-                    DateTime? startEvent =
-                        DateTime.tryParse(element.startTime!)!.toLocal();
-                    DateTime? endEvent =
-                        DateTime.tryParse(element.endTime!)!.toLocal();
-
-                    String event_date_and_day = "Invalid Date";
-                    String event_times = "Invalid Times";
-                    if ((startEvent != null) && (endEvent != null)) {
-                      event_date_and_day =
-                          DateFormat('EEEE, MMMM d').format(startEvent);
-                      event_times = DateFormat('h:mm a').format(startEvent) +
-                          " - " +
-                          DateFormat('h:mm a').format(endEvent);
-                    }
                     return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                               padding: EdgeInsets.fromLTRB(25, 17, 20, 0),
-                              child: Text(event_date_and_day,
-                                  style: TextStyle(
-                                    fontFamily: 'Open Sans',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17.0,
-                                  ))),
+                              child: EventDayDisplay(
+                                eventTime: element,
+                                style: Theme.of(context).textTheme.headline3?.copyWith(fontSize: 17.0)
+                              )
+                          ),
                           Padding(
                               padding: EdgeInsets.fromLTRB(25, 5, 20, 10),
-                              child: Text(event_times,
-                                  style: TextStyle(
-                                    fontFamily: 'Open Sans',
-                                    fontSize: 16.0,
-                                  ))),
+                              child: EventTimeDisplay(
+                                eventTime: element,
+                                style: Theme.of(context).textTheme.headline3
+                              )
+                          ),
                         ]);
                   }).toList())
               : Column(children: [Text("Online Event")]),
@@ -97,66 +82,28 @@ class _EventPageState extends State<EventPage> {
                     style: TextStyle(
                         fontStyle: FontStyle.italic, fontSize: 19.0))),
           Container(
-              child: Html(
-                  data: args.description != null
-                      ? args.description!.split('<p><br></p>').toSet().join(' ')
-                      : "",
-                  style: {
-                    "p": Style(
-                      fontFamily: 'serif',
-                      padding: EdgeInsets.all(0),
-                      margin: EdgeInsets.all(16.0),
-                      fontSize: FontSize(16.0),
-                    )
-                  },
-                  onLinkTap: (url, renderContext, map, element) {
-                    //  print("Opening $url...");
-                    _launchURL(url);
-                  })),
-          if ((args.websiteLink != "none") && (args.websiteLink != ""))
+              child: Markup(content: args.description != null ? args.description! : args.briefDescription!)
+            ),
+          if (showExternalLink(args.websiteLink))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: GestureDetector(
-                  onTap: () {
-                    _launchURL(args.websiteLink);
-                  },
-                  child: Text("Event Website",
-                      style:
-                          TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
-                )),
-          if ((args.ticketLink != "none") && (args.ticketLink != ""))
+                child: TextLink(url: args.websiteLink!, text: "Event Website")
+              ),
+          if (showExternalLink(args.ticketLink))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: GestureDetector(
-                  onTap: () {
-                    _launchURL(args.ticketLink);
-                  },
-                  child: Text("Event Ticket Link",
-                      style:
-                          TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
-                )),
-          if ((args.fbEventLink != "none") && (args.fbEventLink != ""))
+                child: TextLink(url: args.ticketLink!, text: "EventTicketLink")
+              ),
+          if (showExternalLink(args.fbEventLink))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: GestureDetector(
-                  onTap: () {
-                    _launchURL(args.fbEventLink);
-                  },
-                  child: Text("Facebook Event Link",
-                      style:
-                          TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
-                )),
-          if ((args.eventbriteLink != "none") && (args.eventbriteLink != ""))
+                child: TextLink(url: args.fbEventLink!, text: "Facebook Event Link")
+              ),
+          if (showExternalLink(args.eventbriteLink))
             Container(
                 padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                child: GestureDetector(
-                  onTap: () {
-                    _launchURL(args.eventbriteLink);
-                  },
-                  child: Text("Eventbrite Link",
-                      style:
-                          TextStyle(color: Colors.blueAccent, fontSize: 16.0)),
-                )),
+                child: TextLink(url: args.eventbriteLink!, text: "Eventbrite Link")
+              ),
           Container(
             //Just a spacer
             padding: EdgeInsets.fromLTRB(30, 10, 30, 40),
@@ -165,16 +112,6 @@ class _EventPageState extends State<EventPage> {
   }
 }
 
-class _DateAndTime {
-  String? event_date_and_day;
-  String? event_times;
-}
-
-_launchURL(url) async {
-  print("try opening" + url);
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
+bool showExternalLink(String? url) {
+  return url != null && url != "" && url != "none";
 }
