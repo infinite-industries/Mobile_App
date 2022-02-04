@@ -24,9 +24,9 @@ echo "Installed flutter to `pwd`/flutter"
 
 echo "!!! WHERE AM I: $(pwd)"
 
-flutter build apk --debug -t $target
-flutter build apk --profile -t $target # from (https://stackoverflow.com/questions/62720395/flutter-release-apk-error-execution-failed-for-task-applintvitalrelease)
-flutter build apk --release -t $target # from (https://stackoverflow.com/questions/64046233/issue-building-flutter-android-apk-with-ms-appcenter-using-flavors)
+flutter build apk --debug
+flutter build apk --profile # from (https://stackoverflow.com/questions/62720395/flutter-release-apk-error-execution-failed-for-task-applintvitalrelease)
+#flutter build apk --release -t $target # from (https://stackoverflow.com/questions/64046233/issue-building-flutter-android-apk-with-ms-appcenter-using-flavors)
 
 #copy the APK where AppCenter will find it
 mkdir -p android/app/build/outputs/apk/; mv build/app/outputs/apk/release/app-release.apk $_
