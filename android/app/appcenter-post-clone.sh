@@ -12,10 +12,6 @@ cd ..
 git clone -b stable https://github.com/flutter/flutter.git
 export PATH=`pwd`/flutter/bin:$PATH
 
-# ==== from stackflow (https://stackoverflow.com/questions/64046233/issue-building-flutter-android-apk-with-ms-appcenter-using-flavors) ====
-target="lib/main.dart"
-# ====
-
 flutter channel stable
 flutter doctor
 flutter pub get #(https://stackoverflow.com/questions/64046233/issue-building-flutter-android-apk-with-ms-appcenter-using-flavors)
