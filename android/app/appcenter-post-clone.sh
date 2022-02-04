@@ -22,8 +22,8 @@ flutter pub get #(https://stackoverflow.com/questions/64046233/issue-building-fl
 
 echo "Installed flutter to `pwd`/flutter"
 
-flutter build apk --debug
 flutter build apk --profile # from (https://stackoverflow.com/questions/62720395/flutter-release-apk-error-execution-failed-for-task-applintvitalrelease)
+flutter build apk --debug
 flutter build apk --release # from (https://stackoverflow.com/questions/64046233/issue-building-flutter-android-apk-with-ms-appcenter-using-flavors)
 
 #copy the APK where AppCenter will find it
